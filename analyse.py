@@ -1,13 +1,12 @@
-import sys
+import boto3
 
 try:	
-	fichier = open(sys.argv[1], "r")
-except FileNotFoundError:
-	print ("Ce fichier n'existe pas. Veuillez essayer avec un autre fichier")
-	exit()
-
-lignes = fichier.readlines()
-fichier.close()
+	s3 = boto3.client('s3')
+	reponse = s3.get_object(Bucket='florian-auge-bucket', Key='scores.csv')
+	lignes = reponse['Body'].read().decode('utf-8').splitlines(keepends=True)
+except Exception as e:
+    print("Erreur :", e)
+    exit()
 
 lignes = lignes[1:]
 total = 0
