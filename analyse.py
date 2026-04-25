@@ -1,7 +1,8 @@
 import boto3
 
-try:	
-	s3 = boto3.client('s3')
+# utilisation du s3 d'AWS pour héberger les fichiers dans un bucket
+try:										
+	s3 = boto3.client('s3')						
 	reponse = s3.get_object(Bucket='florian-auge-bucket', Key='scores.csv')
 	lignes = reponse['Body'].read().decode('utf-8').splitlines(keepends=True)
 except Exception as e:
